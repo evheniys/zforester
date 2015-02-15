@@ -1,8 +1,11 @@
 <?php namespace App\Services;
 
 use App\User;
+use App\UserLog;
+use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
+use App\TurboSms\TurboSms;
 
 class Registrar implements RegistrarContract {
 
@@ -15,9 +18,7 @@ class Registrar implements RegistrarContract {
 	public function validator(array $data)
 	{
 		return Validator::make($data, [
-			'name' => 'required|max:255',
-			'email' => 'required|email|max:255|unique:users',
-			'password' => 'required|confirmed|min:6',
+			'phonenumber' => 'required|max:13|unique:users',
 		]);
 	}
 
@@ -29,11 +30,20 @@ class Registrar implements RegistrarContract {
 	 */
 	public function create(array $data)
 	{
-		return User::create([
-			'name' => $data['name'],
-			'email' => $data['email'],
+		$sms = new TurboSms();
+		$sms_text = 'Ваш пароль на доступ к сайту: '.'"'.$data['password'].'"';
+		$sms->send($sms_text,$data['phonenumber']);
+		$user = User::create([
+			'phonenumber' => $data['phonenumber'],
 			'password' => bcrypt($data['password']),
+			'status' => 1,
 		]);
+		$userlog['userid'] = $user->id;
+		$userlog['activity'] = 1;
+		$userlog['ipaddress'] = $data['ip'];
+		UserLog::create($userlog);
+
+		return $user;
 	}
 
 }

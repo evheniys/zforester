@@ -38,7 +38,10 @@ trait AuthenticatesAndRegistersUsers {
 	 */
 	public function postRegister(Request $request)
 	{
+
 		$validator = $this->registrar->validator($request->all());
+
+
 
 		if ($validator->fails())
 		{
@@ -47,7 +50,14 @@ trait AuthenticatesAndRegistersUsers {
 			);
 		}
 
-		$this->auth->login($this->registrar->create($request->all()));
+		$req = $request->all();
+		$t_pass=round(mt_rand(mt_rand(0, 10000), mt_rand(10000, 90000))*time()/M_PI);
+		$t_pass = substr($t_pass,0,4);
+		$req['password'] = $t_pass;
+		//str_random(4);
+		$req['ip'] = $request->ip();
+		//$this->auth->login($this->registrar->create($req));
+		$this->registrar->create($req);
 
 		return redirect($this->redirectPath());
 	}
@@ -71,11 +81,10 @@ trait AuthenticatesAndRegistersUsers {
 	public function postLogin(Request $request)
 	{
 		$this->validate($request, [
-			'email' => 'required', 'password' => 'required',
+			'phonenumber' => 'required', 'password' => 'required',
 		]);
 
-		$credentials = $request->only('email', 'password');
-
+		$credentials = $request->only('phonenumber', 'password');
 		if ($this->auth->attempt($credentials, $request->has('remember')))
 		{
 			return redirect()->intended($this->redirectPath());
@@ -84,7 +93,7 @@ trait AuthenticatesAndRegistersUsers {
 		return redirect($this->loginPath())
 					->withInput($request->only('email', 'remember'))
 					->withErrors([
-						'email' => 'These credentials do not match our records.',
+						'phonenumber' => 'These credentials do not match our records.',
 					]);
 	}
 

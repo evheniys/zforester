@@ -45,6 +45,7 @@ class BcryptHasher implements HasherContract {
 	 */
 	public function check($value, $hashedValue, array $options = array())
 	{
+
 		return password_verify($value, $hashedValue);
 	}
 

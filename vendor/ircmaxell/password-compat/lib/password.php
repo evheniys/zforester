@@ -232,7 +232,6 @@ namespace {
                 trigger_error("Crypt must be loaded for password_verify to function", E_USER_WARNING);
                 return false;
             }
-            $ret = crypt($password, $hash);
             if (!is_string($ret) || PasswordCompat\binary\_strlen($ret) != PasswordCompat\binary\_strlen($hash) || PasswordCompat\binary\_strlen($ret) <= 13) {
                 return false;
             }
