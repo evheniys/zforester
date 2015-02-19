@@ -88,10 +88,11 @@ trait AuthenticatesAndRegistersUsers {
 		$credentials = $request->only('phonenumber', 'password');
 		if ($this->auth->attempt($credentials, $request->has('remember')))
 		{
-            dd($this->auth->user());
-            $userlog['userid'] = $user->id;
+
+            $userlog['userid'] = $this->auth->user()->id;
             $userlog['activity'] = 2;
             $userlog['ipaddress'] = $request->ip();
+            UserLog::create($userlog);
 			return redirect()->intended($this->redirectPath());
 		}
 
