@@ -7,6 +7,6 @@ class Files extends Model {
 	//
     protected $table = 'files';
 
-    protected $fillable = ['filename', 'description'];
+    protected $fillable = ['filename', 'mimetype', 'description'];
 
 }

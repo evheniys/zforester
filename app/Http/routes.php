@@ -17,6 +17,9 @@ Route::get('home', 'HomeController@index');
 
 Route::get('/files/add', 'FilesController@create');
 Route::post('/files/add', 'FilesController@store');
+Route::get('/files', 'FilesController@index');
+
+Route::get('/getfile/{id}','FilesController@download');
 
 
 
