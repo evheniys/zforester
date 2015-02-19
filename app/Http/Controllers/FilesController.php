@@ -3,8 +3,10 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Files;
+use App\FileLog;
 use Carbon\Carbon;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
 use Request;
@@ -13,7 +15,7 @@ class FilesController extends Controller {
 
     public function __construct()
     {
-    //    $this->middleware('auth');
+        $this->middleware('auth');
     }
 
 	/**
@@ -25,6 +27,7 @@ class FilesController extends Controller {
 	{
 		//
         $files = Files::all();
+
         return view('downloads',compact('files'));
 	}
 
@@ -124,7 +127,12 @@ class FilesController extends Controller {
     {
         //
         $file = Files::find($id);
-        dd($file);
+        //
+        $fldata['fileid'] = $id;
+        $user = Auth::user();
+        $fldata['userid'] =$user->id;
+        FileLog::create($fldata);
+        return response()->download(public_path().'/'.$file['filename']);
     }
 
 }

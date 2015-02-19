@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
+use App\UserLog;
 
 trait AuthenticatesAndRegistersUsers {
 
@@ -87,6 +88,10 @@ trait AuthenticatesAndRegistersUsers {
 		$credentials = $request->only('phonenumber', 'password');
 		if ($this->auth->attempt($credentials, $request->has('remember')))
 		{
+            dd($this->auth->user());
+            $userlog['userid'] = $user->id;
+            $userlog['activity'] = 2;
+            $userlog['ipaddress'] = $request->ip();
 			return redirect()->intended($this->redirectPath());
 		}
 
