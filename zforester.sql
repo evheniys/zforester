@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 19, 2015 at 07:13 PM
+-- Generation Time: Feb 20, 2015 at 12:14 AM
 -- Server version: 5.5.41-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.6
 
@@ -151,14 +151,16 @@ CREATE TABLE IF NOT EXISTS `userlog` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `userlog`
 --
 
 INSERT INTO `userlog` (`id`, `userid`, `activity`, `ipaddress`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '127.0.0.1', '2015-02-15 21:48:00', '2015-02-15 21:48:00');
+(1, 1, 1, '127.0.0.1', '2015-02-15 21:48:00', '2015-02-15 21:48:00'),
+(2, 1, 2, '127.0.0.1', '2015-02-19 20:09:37', '2015-02-19 20:09:37'),
+(3, 1, 2, '127.0.0.1', '2015-02-19 20:10:12', '2015-02-19 20:10:12');
 
 -- --------------------------------------------------------
 
@@ -183,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `phonenumber`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, '+380958949336', '$2y$10$ThiYs.mY0wFUAsvKnUw8welBTO0tRDXC9HZNVkGRDL0WULDMr.OFK', 1, 'jKrmFHIvJQkQTIPU2OaVZH0lPmHnnX0NBm5NQbvpY4z1XGeRLau9n1R6S5A0', '2015-02-15 21:47:59', '2015-02-19 13:56:17');
+(1, '+380958949336', '$2y$10$ThiYs.mY0wFUAsvKnUw8welBTO0tRDXC9HZNVkGRDL0WULDMr.OFK', 1, 'XQYaogpcgMDQaqU1B0KSZYV3Mv6oNZTIGLuI3fGBmTCsI80yboktV439LAmb', '2015-02-15 21:47:59', '2015-02-19 20:09:59');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
