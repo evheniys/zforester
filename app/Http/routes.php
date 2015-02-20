@@ -11,17 +11,17 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'HomeController@index');
 
 Route::get('home', 'HomeController@index');
 
 Route::get('/files/add', 'FilesController@create');
 Route::post('/files/add', 'FilesController@store');
-Route::get('/files', 'FilesController@index');
+Route::get('/prices', 'FilesController@index');
 
 Route::get('/getfile/{id}','FilesController@download');
 
-
+Route::get('/log','LogController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
